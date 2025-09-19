@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import Button from "../../components/Button";
 import JobCard from "../../components/JobCard";
 import { List, KanbanSquare } from "lucide-react";
-import JobKanbanMoveOnly from "./JobKanbanMoveOnly";
+import JobKanbanMoveOnly from "./JobKanBanMove";
 import { useToast } from "../../components/ToastProvider";
 import {
   setJobStatusOverride,
