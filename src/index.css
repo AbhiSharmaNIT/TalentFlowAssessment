@@ -1,0 +1,2 @@
+@import "tailwindcss";
+:root { --sidebar-w: 16rem; } /* matches expanded w-64 */
