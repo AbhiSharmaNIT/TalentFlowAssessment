@@ -1,42 +1,123 @@
-# TalentFlow – A Mini Hiring Platform (Front-End Only)
+# TalentFlow — HR Hiring Platform (Frontend-Only)
 
-TalentFlow is a front-end React application built as part of the ENTNT technical assessment.  
-It simulates a **mini hiring platform for HR teams**, enabling them to manage jobs, candidates, and assessments without a real backend. All data is persisted locally using IndexedDB (via Dexie/localForage) and served through a mocked REST API using MirageJS.
+> **TalentFlow** is a modern, HR-focused hiring tool built fully on the frontend. It allows recruiters to manage **jobs, candidates, assessments, and notifications** through a polished UI. Instead of a backend, the system uses **MirageJS** to simulate REST APIs and **IndexedDB** for persistent storage across sessions.
 
----
+🔗 **Live Demo**: [https://talent-flow-assessment.vercel.app/](https://talent-flow-assessment.vercel.app/)
 
-## 🚀 Features
-
-### 1. Jobs Management
-- Create, edit, archive/unarchive jobs.  
-- Server-like pagination & filtering (title, status, tags).  
-- Drag-and-drop job reordering with optimistic updates and rollback on failure.  
-- Deep-link support: `/jobs/:jobId`.
-
-### 2. Candidate Management
-- Virtualized list of **1000+ seeded candidates** with fast search & stage filtering.  
-- Candidate profile route: `/candidates/:id` with timeline of status changes.  
-- Kanban board to move candidates across stages (applied → screen → tech → offer → hired → rejected).  
-- Notes with simple `@mentions` (local suggestion list).
-
-### 3. Assessments
-- Assessment builder per job: add sections & multiple question types (single/multi-choice, text, numeric with range, file upload stub).  
-- Real-time preview of the assessment as a fillable form.  
-- Form runtime supports validation & conditional questions.  
-- Candidate responses saved locally and restored on refresh.
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8?logo=tailwindcss)
+![MirageJS](https://img.shields.io/badge/MirageJS-Mock_API-orange)
+![Dexie](https://img.shields.io/badge/IndexedDB-Dexie%2FlocalForage-blue)
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Highlights
 
-- **Framework**: [React 19](https://react.dev/) + [React Router v7](https://reactrouter.com/)  
-- **Styling**: [TailwindCSS v4](https://tailwindcss.com/) + custom dark mode  
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)  
-- **Mock API**: [MirageJS](https://miragejs.com/) (with artificial latency & error rate)  
-- **Persistence**: IndexedDB via [localForage](https://github.com/localForage/localForage)  
-- **DnD**: [dnd-kit](https://dndkit.com/) for drag-and-drop  
-- **UI Icons**: [Lucide](https://lucide.dev/), [Heroicons](https://heroicons.com/)  
-- **Notifications**: Radix Toasts  
+- **Dashboard** → Stats on jobs, candidates, assessments, hiring rate, activity timeline, and urgent tasks  
+- **Jobs** → Create, edit, archive/unarchive, reorder with drag-and-drop (optimistic UI + rollback), deep link support  
+- **Candidates** → 1000+ seeded records, search + stage filter, virtualized list, candidate profile with status timeline, Kanban board for stage transitions, notes with `@mentions`  
+- **Assessments** → Per-job builder with multiple question types, live preview, runtime validation, conditional fields, and local persistence  
+- **Notifications** → Central feed of HR actions and updates  
+- **Persistence** → State stored in IndexedDB (Dexie/localForage) and restored on refresh  
+- **API Simulation** → MirageJS provides latency & error injection to mimic real network conditions  
+
+---
+
+## 📚 Table of Contents
+
+- [Tech Stack](#-tech-stack)
+- [App Flows](#-app-flows)
+- [Routing](#-routing)
+- [Mock API](#-mock-api)
+- [Persistence](#-persistence)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Configuration](#-configuration)
+- [Known Issues](#-known-issues)
+- [Roadmap](#-roadmap)
+- [License](#-license)
+
+---
+
+## 🧰 Tech Stack
+
+- **React 19** + **React Router v7**
+- **Vite** for build and dev server
+- **TailwindCSS v4** (dark mode included)
+- **Framer Motion** for smooth animations
+- **MirageJS** for mock APIs
+- **Dexie / localForage** for IndexedDB persistence
+- **DnD Kit** for drag-and-drop features
+- **react-window** for virtualization (large candidate lists)
+- **Lucide/Heroicons** for icons
+- **Radix Toasts** for notifications
+
+---
+
+## 🔄 App Flows
+
+### Jobs
+- Paginated list with filters (status, title, tags)
+- Job creation & editing (slug uniqueness enforced)
+- Archive/unarchive functionality
+- Drag-and-drop reordering with optimistic UI + rollback on error
+- Direct access to jobs via `/jobs/:jobId`
+
+### Candidates
+- 1000+ generated candidate records
+- Virtualized scrolling for performance
+- Search & stage filtering
+- Kanban board for moving between stages (applied → screen → tech → offer → hired/rejected)
+- Candidate profile pages with activity timelines
+- Notes feature with `@mentions`
+
+### Assessments
+- Build per-job assessments with multiple question types
+- Real-time preview alongside builder
+- Validation (required fields, numeric ranges, max length)
+- Conditional visibility for questions
+- Submissions & drafts stored in IndexedDB
+
+### Notifications
+- Unified activity feed for system & user actions (job edits, candidate updates, submissions)
+
+---
+
+## 🗺 Routing
+
+Base URL → **[TalentFlow Live](https://talent-flow-assessment.vercel.app/)**
+
+- `/` → Landing page (FrontPage)
+- `/dashboard` → HR Dashboard (metrics, recent activity, urgent tasks)
+- `/jobs` → Jobs board
+- `/candidates` → Candidates list (virtualized + filters)
+- `/candidates/:id` → Candidate profile with timeline
+- `/assessments` → Assessment overview & builder
+- `/hr` → HR Profile page
+- `*` → Fallback → redirects to `/`
+
+---
+
+## 🔌 Mock API
+
+All endpoints simulated via MirageJS with:  
+⏱ latency: **200–1200ms**  
+⚠️ error rate: **5–10%** (to test rollback UX)
+
+**Endpoints include:**
+
+- `GET /jobs`, `POST /jobs`, `PATCH /jobs/:id`, `PATCH /jobs/:id/reorder`
+- `GET /candidates`, `POST /candidates`, `PATCH /candidates/:id`, `GET /candidates/:id/timeline`
+- `GET /assessments/:jobId`, `PUT /assessments/:jobId`, `POST /assessments/:jobId/submit`
+
+---
+
+## 💾 Persistence
+
+- All entities (jobs, candidates, assessments, notes, reorder state) stored in **IndexedDB**  
+- Data restored from DB on refresh  
+- To reset → Clear browser storage → reload
 
 ---
 
@@ -44,91 +125,73 @@ It simulates a **mini hiring platform for HR teams**, enabling them to manage jo
 
 ```
 src/
- ├── api/              # Mirage server & API helpers
- ├── assets/           # Logo & icons
- ├── components/       # Reusable UI components
- ├── features/
- │    ├── jobs/        # Job board, job forms
- │    ├── candidates/  # Candidate list, profile, kanban
- │    ├── assessments/ # Assessment builder & preview
- │    └── dashboard/   # Dashboard, HR profile, header
- ├── lib/              # IndexedDB/local storage helpers
- ├── pages/            # Top-level route pages
- ├── App.jsx           # Routing setup
- ├── main.jsx          # Entry point (Mirage + theme init)
- └── index.css         # Tailwind setup
+ ├── api/         # Mirage server & API helpers
+ ├── components/  # Sidebar, Header, Toasts, reusable UI
+ ├── features/    # jobs, candidates, assessments, dashboard, notifications
+ ├── lib/         # Dexie/localForage adapters & utilities
+ ├── pages/       # Route-level pages
+ ├── App.jsx      # Route configuration
+ ├── main.jsx     # App entry point
+ └── index.css    # Tailwind setup
 ```
 
 ---
 
-## ⚙️ Setup & Installation
+## 🚀 Getting Started
 
-1. **Clone the repo**
-   ```bash
-   git clone https://github.com/your-username/talentflow.git
-   cd talentflow
-   ```
+```bash
+# Clone repository
+git clone https://github.com/your-username/talentflow.git
+cd talentflow
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# Install dependencies
+npm install
 
-3. **Run in development**
-   ```bash
-   npm run dev
-   ```
+# Run dev server
+npm run dev
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+# Build production bundle
+npm run build
 
-5. **Preview production build**
-   ```bash
-   npm run preview
-   ```
+# Preview production build
+npm run preview
+```
 
 ---
 
-## 🌐 Deployment
+## ⚙ Configuration
 
-The app is optimized for deployment on **Vercel**.  
-No backend configuration is required; MirageJS + IndexedDB handle all data persistence.
-
----
-
-## ⚖️ Technical Decisions
-
-- **Why MirageJS?** → Provides a realistic REST-like API with artificial latency & error injection to mimic server conditions.  
-- **Why IndexedDB/localForage?** → Ensures state persistence across refreshes without needing a backend.  
-- **Optimistic Updates** → Improves UX by updating UI instantly; rollback restores consistency if API fails.  
-- **Virtualization** → Required for handling 1000+ candidates efficiently.  
-- **Dark Mode First** → App defaults to dark mode with theme toggle stored in `localStorage`.
+- **MirageJS** → latency/error rates adjustable in `src/api/server.js`
+- **Dexie** → DB name = `talentflow-db`
+- **React Query (if enabled)** → query keys by resource
 
 ---
 
-## 🧪 Known Issues / Trade-offs
+## 🧪 Known Issues
 
-- No backend integration (per assignment requirement).  
-- File upload in assessments is a stub (non-functional).  
-- Limited authentication/authorization (all HR actions are open).  
-- Artificial error rate may occasionally prevent job/candidate updates (intended for testing rollback UX).  
-
----
-
-## 📑 Assignment Compliance
-
-This project fulfills the ENTNT technical assignment requirements:  
-✔ Jobs CRUD + reorder  
-✔ Candidate management with kanban + profile timeline  
-✔ Assessment builder & preview with validation  
-✔ Local persistence (IndexedDB + MirageJS)  
-✔ Responsive UI with Tailwind & animations  
-✔ Deployed link & repository provided  
+- File upload in assessments is a stub only (non-functional)
+- No authentication (all HR actions are open by default)
+- Random error injection may occasionally block updates (intended for testing rollback)
 
 ---
 
-## 👨‍💻 Author
+## 🛣 Roadmap
 
-Developed by **Abhishek Kumar** as part of the ENTNT Technical Assessment – September 2025.
+- Multi-tenant support + role-based access
+- Bulk candidate operations & imports
+- Assessment scoring & analytics dashboards
+- Notification webhooks (mock)
+- Theming & branding customization
+- Accessibility improvements for DnD interactions
+
+---
+
+## 📜 License
+
+Open-source for **educational/demo purposes**.  
+Use freely with attribution.  
+© 2025 TalentFlow — HR Hiring Platform
+
+---
+
+🙌 Built with ❤️ using React, Vite, Tailwind, MirageJS, Dexie/localForage, DnD Kit, react-window, and lucide-react.
