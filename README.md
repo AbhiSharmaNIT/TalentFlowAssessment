@@ -93,7 +93,7 @@ src/
 
 ## 🌐 Deployment
 
-The app is optimized for deployment on **Vercel** or **Netlify**.  
+The app is optimized for deployment on **Vercel**.  
 No backend configuration is required; MirageJS + IndexedDB handle all data persistence.
 
 ---
@@ -114,12 +114,6 @@ No backend configuration is required; MirageJS + IndexedDB handle all data persi
 - File upload in assessments is a stub (non-functional).  
 - Limited authentication/authorization (all HR actions are open).  
 - Artificial error rate may occasionally prevent job/candidate updates (intended for testing rollback UX).  
-
----
-
-## 📸 Screenshots
-
-(Add your screenshots here with your own captions later.)
 
 ---
 
