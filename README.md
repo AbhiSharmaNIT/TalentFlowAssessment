@@ -49,9 +49,9 @@
 - **MirageJS** for mock APIs
 - **Dexie / localForage** for IndexedDB persistence
 - **DnD Kit** for drag-and-drop features
-- **react-window** for virtualization (large candidate lists)
-- **Lucide/Heroicons** for icons
-- **Radix Toasts** for notifications
+- **lucide-react** for icons
+- **radix-ui/react-toast** for notifications
+- **framer-motion** for Effect
 
 ---
 
@@ -125,14 +125,19 @@ All endpoints simulated via MirageJS with:
 
 ```
 src/
- ├── api/         # Mirage server & API helpers
- ├── components/  # Sidebar, Header, Toasts, reusable UI
- ├── features/    # jobs, candidates, assessments, dashboard, notifications
- ├── lib/         # Dexie/localForage adapters & utilities
- ├── pages/       # Route-level pages
- ├── App.jsx      # Route configuration
- ├── main.jsx     # App entry point
- └── index.css    # Tailwind setup
+ ├── api/              # Mirage server & API helpers
+ ├── assets/           # Logo & icons
+ ├── components/       # Reusable UI components
+ ├── features/
+ │    ├── jobs/        # Job board, job forms
+ │    ├── candidates/  # Candidate list, profile, kanban
+ │    ├── assessments/ # Assessment builder & preview
+ │    └── dashboard/   # Dashboard, HR profile, header
+ ├── lib/              # IndexedDB/local storage helpers
+ ├── pages/            # Top-level route pages
+ ├── App.jsx           # Routing setup
+ ├── main.jsx          # Entry point (Mirage + theme init)
+ └── index.css         # Tailwind setup
 ```
 
 ---
@@ -162,7 +167,7 @@ npm run preview
 ## ⚙ Configuration
 
 - **MirageJS** → latency/error rates adjustable in `src/api/server.js`
-- **Dexie** → DB name = `talentflow-db`
+- **Dexie** → DB storage
 - **React Query (if enabled)** → query keys by resource
 
 ---
@@ -175,23 +180,19 @@ npm run preview
 
 ---
 
-## 🛣 Roadmap
-
-- Multi-tenant support + role-based access
-- Bulk candidate operations & imports
-- Assessment scoring & analytics dashboards
-- Notification webhooks (mock)
-- Theming & branding customization
-- Accessibility improvements for DnD interactions
-
 ---
 
-## 📜 License
+## 📑 Assignment Compliance
 
-Open-source for **educational/demo purposes**.  
-Use freely with attribution.  
-© 2025 TalentFlow — HR Hiring Platform
+This project fulfills the ENTNT technical assignment requirements:  
+✔ Jobs CRUD + reorder  
+✔ Candidate management with kanban + profile timeline  
+✔ Assessment builder & preview with validation  
+✔ Local persistence (IndexedDB + MirageJS)  
+✔ Responsive UI with Tailwind & animations  
+✔ Deployed link & repository provided  
 
 ---
+## 👨‍💻 Author
 
-🙌 Built with ❤️ using React, Vite, Tailwind, MirageJS, Dexie/localForage, DnD Kit, react-window, and lucide-react.
+Developed by **Abhishek Kumar** as part of the ENTNT Technical Assessment – September 2025.
