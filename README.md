@@ -105,12 +105,6 @@ All endpoints simulated via MirageJS with:
 ⏱ latency: **200–1200ms**  
 ⚠️ error rate: **5–10%** (to test rollback UX)
 
-**Endpoints include:**
-
-- `GET /jobs`, `POST /jobs`, `PATCH /jobs/:id`, `PATCH /jobs/:id/reorder`
-- `GET /candidates`, `POST /candidates`, `PATCH /candidates/:id`, `GET /candidates/:id/timeline`
-- `GET /assessments/:jobId`, `PUT /assessments/:jobId`, `POST /assessments/:jobId/submit`
-
 ---
 
 ## 💾 Persistence
